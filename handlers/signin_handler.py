@@ -17,8 +17,8 @@ def signin():
     if not user or not User.check_password(user["password"], password):
         return jsonify({"msg": "Bad credentials"}), 401
 
-    # Create the access token
-    access_token = create_access_token(identity=user["email"], expires_delta=timedelta(hours=1))
+    # Create the access token with both full_name and email
+    access_token = create_access_token(identity={"full_name": user["full_name"], "email": user["email"]}, expires_delta=timedelta(hours=1))
     
     # Exclude password from user data before sending the response
     user_data = {
