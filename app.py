@@ -2,6 +2,7 @@
 
 from flask import Flask
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS  # Import CORS
 from routes.auth_routes import auth
 from routes.contact_routes import contact
 from routes.news_routes import news
@@ -21,11 +22,14 @@ jwt = JWTManager(app)
 # Initialize MongoDB client
 mongo_client = get_mongo_client()
 
+# Configure CORS, allowing requests from localhost:4321
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:4321"}})
+
 @app.route("/")
 def home():
     return "<p>Hello, World!</p>"
 
-# Register Blueprint for authentication routes
+# Register Blueprints for authentication, contact, and news routes
 app.register_blueprint(auth)
 app.register_blueprint(contact)
 app.register_blueprint(news)
