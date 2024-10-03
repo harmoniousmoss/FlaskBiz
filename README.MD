@@ -7,5 +7,5 @@ This is a simple API for a simple company website extracted from Biwan Project. 
 - [x] JWT Token
 - [x] User seeding
 - [x] Contact post endpoint
-- [ ] News post endpoint
-- [ ] AWS S3 Integration
+- [x] News post endpoint
+- [x] AWS S3 Integration
