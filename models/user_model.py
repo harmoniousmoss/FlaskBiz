@@ -1,7 +1,7 @@
 # models/user_model.py
 
 from pymongo import MongoClient
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 import os
 from dotenv import load_dotenv
 
@@ -12,6 +12,9 @@ client = MongoClient(MONGODB_URI)
 db = client.testflask
 users_collection = db.flaskusers
 
+# Create a unique index on the email field
+users_collection.create_index("email", unique=True)
+
 class User:
     @staticmethod
     def create_user(full_name, email, password):
@@ -21,13 +24,13 @@ class User:
             "email": email,
             "password": password_hash
         }
-        users_collection.insert_one(user)
-        return user
+        try:
+            users_collection.insert_one(user)
+            return user
+        except Exception as e:
+            # Return an error if the email is already in use
+            return {"error": str(e)}
 
     @staticmethod
     def find_by_email(email):
         return users_collection.find_one({"email": email})
-
-    @staticmethod
-    def check_password(stored_password, provided_password):
-        return check_password_hash(stored_password, provided_password)
