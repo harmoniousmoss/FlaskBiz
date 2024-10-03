@@ -10,10 +10,6 @@ ENV/
 env.bak/
 venv.bak/
 
-# Flask secret key
-*.env
-.env
-
 # IDE/editor specific
 .vscode/
 .idea/
