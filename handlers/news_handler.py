@@ -1,5 +1,3 @@
-# handlers/news_handler.py
-
 from flask import request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models.news_model import News
@@ -14,8 +12,9 @@ class NewsForm(Form):
 
 @jwt_required()
 def post_news():
-    # Retrieve the user identity from the JWT token
+    # Retrieve the user's identity (which now includes both full name and email)
     user_identity = get_jwt_identity()
+    user_full_name = user_identity["full_name"]  # Get the full name from the JWT
 
     # Parse the form data
     form = NewsForm(request.form)
@@ -32,7 +31,7 @@ def post_news():
     else:
         return jsonify({"msg": "News cover is required"}), 400
 
-    # Create the news post and associate it with the user identity
+    # Create the news post and associate it with the user's full name
     news = News.create_news(
         title=form.title.data,
         excerpt=form.excerpt.data,
@@ -41,9 +40,9 @@ def post_news():
         news_cover_url=news_cover_url
     )
 
-    # You can add the user_identity to the response to confirm association
+    # Return success message and the submitted data
     return jsonify({
         "msg": "News posted successfully",
         "news": news,
-        "posted_by": user_identity  # Indicate who posted the news
+        "posted_by": user_full_name  # Display the full name instead of email
     }), 201
