@@ -1,5 +1,3 @@
-# handlers/signin_handler.py
-
 from flask import request, jsonify
 from models.user_model import User
 from flask_jwt_extended import create_access_token
