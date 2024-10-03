@@ -3,6 +3,7 @@
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from routes.auth_routes import auth
+from routes.contact_routes import contact
 from config.mongo_config import get_mongo_client
 import os
 from dotenv import load_dotenv
@@ -25,6 +26,7 @@ def home():
 
 # Register Blueprint for authentication routes
 app.register_blueprint(auth)
+app.register_blueprint(contact)
 
 if __name__ == "__main__":
     app.run()
