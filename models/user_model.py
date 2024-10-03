@@ -1,7 +1,5 @@
-# models/user_model.py
-
 from pymongo import MongoClient
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash  # Import check_password_hash
 import os
 from dotenv import load_dotenv
 
@@ -34,3 +32,8 @@ class User:
     @staticmethod
     def find_by_email(email):
         return users_collection.find_one({"email": email})
+
+    @staticmethod
+    def check_password(stored_password, provided_password):
+        # Compare the stored hashed password with the provided password
+        return check_password_hash(stored_password, provided_password)
