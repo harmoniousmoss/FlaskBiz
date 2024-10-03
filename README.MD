@@ -3,8 +3,9 @@ This is a simple API for a simple company website extracted from Biwan Project. 
 
 # Features
 - [x] MongoDB Integration
-- [ ] User Authentication
-- [ ] JWT Token
+- [x] User Authentication
+- [x] JWT Token
+- [x] User seeding
 - [ ] Contact post endpoint
 - [ ] News post endpoint
 - [ ] AWS S3 Integration
