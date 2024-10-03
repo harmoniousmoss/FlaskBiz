@@ -9,7 +9,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-.venv/
 
 # Flask secret key
 *.env
